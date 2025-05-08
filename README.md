@@ -1,4 +1,3 @@
-````markdown
 # AliExpress Web Scraper Page
 
 Web Scraper to CSV from AliExpress (Keyword-Page and Product URL) **without API key**.
