@@ -31,6 +31,13 @@
 			#loadingPopup {
 				z-index: 9999;
 			}
+
+			/* Tombol tidak aktif */
+			.btn-inactive {
+				background-color: #d1d5db; /* Grey */
+				color: #9ca3af; /* Text grey */
+				cursor: pointer;
+			}
 		</style>
 	</head>
 	<body class="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center p-4">
@@ -135,18 +142,36 @@
 				loadingPopup.classList.add("hidden");
 			};
 
+			// Fungsi untuk mengaktifkan tombol keyword mode dan menonaktifkan tombol URL mode
+			const activateKeywordMode = () => {
+				keywordForm.classList.remove("hidden");
+				urlForm.classList.add("hidden");
+				keywordModeBtn.classList.remove("btn-inactive");
+				keywordModeBtn.classList.add("bg-indigo-600", "text-white");
+				urlModeBtn.classList.add("btn-inactive");
+				urlModeBtn.classList.remove("bg-green-600", "text-white");
+			};
+
+			// Fungsi untuk mengaktifkan tombol URL mode dan menonaktifkan tombol keyword mode
+			const activateUrlMode = () => {
+				urlForm.classList.remove("hidden");
+				keywordForm.classList.add("hidden");
+				urlModeBtn.classList.remove("btn-inactive");
+				urlModeBtn.classList.add("bg-green-600", "text-white");
+				keywordModeBtn.classList.add("btn-inactive");
+				keywordModeBtn.classList.remove("bg-indigo-600", "text-white");
+			};
+
 			// Event listener untuk tombol mode keyword
 			keywordModeBtn.addEventListener("click", (e) => {
 				e.preventDefault();
-				keywordForm.classList.remove("hidden");
-				urlForm.classList.add("hidden");
+				activateKeywordMode();
 			});
 
 			// Event listener untuk tombol mode URL
 			urlModeBtn.addEventListener("click", (e) => {
 				e.preventDefault();
-				urlForm.classList.remove("hidden");
-				keywordForm.classList.add("hidden");
+				activateUrlMode();
 			});
 
 			// Event listener untuk form keyword
