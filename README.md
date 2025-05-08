@@ -98,14 +98,12 @@ File ini berisi data produk dari URL yang dimasukkan, termasuk nama produk, harg
 ## 📂 Struktur Proyek
 
 ```
-web-scraper-tool/
-├── backend/               # Server dan scraping logic
-├── frontend/              # Antarmuka pengguna
-├── public/                # Aset statis
-├── output/                # Hasil scraping (CSV)
-├── .env                   # Konfigurasi environment
-├── package.json
-└── README.md
+aliexpress-web-scraper-page/
+├── frontend-v1.html                  # Antarmuka pengguna utama
+├── scraper-frontend-input-url.js    # Script scraping untuk mode URL
+├── scraper-frontend-key-page.js     # Script scraping untuk mode Keyword
+├── server-dev2.js                   # Server backend dan handler scraping
+├── README.md                        # Dokumentasi proyek
 ```
 
 ---
