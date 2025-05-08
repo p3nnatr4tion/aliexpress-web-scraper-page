@@ -99,7 +99,7 @@ File ini berisi data produk dari URL yang dimasukkan, termasuk nama produk, harg
 
 ```
 aliexpress-web-scraper-page/
-├── frontend-v1.html                  # Antarmuka pengguna utama
+├── frontend-v1.html                 # Antarmuka pengguna utama
 ├── scraper-frontend-input-url.js    # Script scraping untuk mode URL
 ├── scraper-frontend-key-page.js     # Script scraping untuk mode Keyword
 ├── server-dev2.js                   # Server backend dan handler scraping
