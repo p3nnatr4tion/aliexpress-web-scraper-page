@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Scraper One Page</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<style>
+			/* Fade in & slide up animation */
+			@keyframes fadeSlideUp {
+				0% {
+					opacity: 0;
+					transform: translateY(20px);
+				}
+				100% {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+			.fade-slide-up {
+				animation: fadeSlideUp 0.6s ease-out;
+			}
+
+			/* Progress bar animation */
+			.progress-bar {
+				background: linear-gradient(to right, #4f46e5, #6366f1);
+				height: 8px;
+				width: 0%;
+				transition: width 0.3s ease-in-out;
+			}
+
+			#loadingPopup {
+				z-index: 9999;
+			}
+		</style>
+	</head>
+	<body class="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 flex items-center justify-center p-4">
+		<div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-xl border border-indigo-300 fade-slide-up">
+			<h1 class="text-3xl font-bold text-indigo-700 mb-6 text-center">🔍 Web Scraper Tool</h1>
+
+			<!-- Mode selection buttons -->
+			<div class="flex justify-center gap-4 mb-6">
+				<button id="keywordModeBtn" class="flex-1 px-4 py-2 rounded-xl font-semibold transition-all duration-200 bg-indigo-600 text-white hover:bg-indigo-700">🔑 Keyword Mode</button>
+				<button id="urlModeBtn" class="flex-1 px-4 py-2 rounded-xl font-semibold transition-all duration-200 bg-green-600 text-white hover:bg-green-700">🔗 URL Mode</button>
+			</div>
+
+			<!-- Form for keyword mode -->
+			<form id="keywordForm" class="space-y-4">
+				<!-- Input kata kunci -->
+				<div>
+					<label for="keyword" class="block font-semibold text-gray-800">🔑 Kata Kunci Pencarian</label>
+					<input
+						type="text"
+						id="keyword"
+						name="keyword"
+						required
+						class="w-full px-4 py-2 border-2 border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 mt-1 bg-indigo-50 placeholder-gray-500"
+						placeholder="Example: Book"
+					/>
+				</div>
+
+				<!-- Jumlah halaman -->
+				<div>
+					<label for="pages" class="block font-semibold text-gray-800">📄 Jumlah Halaman</label>
+					<input type="number" id="pages" name="pages" min="1" value="1" class="w-full px-4 py-2 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 mt-1 bg-gray-50" />
+				</div>
+
+				<!-- Tombol mulai scraping -->
+				<button type="submit" id="scrapeBtn" class="w-full bg-indigo-600 text-white py-2 rounded-xl font-semibold hover:bg-indigo-700 transition hover:scale-105">🚀 Mulai Scraping</button>
+			</form>
+
+			<!-- Form for URL mode -->
+			<form id="urlForm" class="space-y-4 hidden">
+				<!-- Input URL opsional -->
+				<div>
+					<label for="url" class="block font-semibold text-gray-800">🔗 URL (Opsional)</label>
+					<input
+						type="url"
+						id="url"
+						name="url"
+						class="w-full px-4 py-2 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 mt-1 bg-gray-50"
+						placeholder="Example: https://www.aliexpress.com/item/1005002878829589.html"
+					/>
+				</div>
+
+				<!-- Tombol mulai scraping -->
+				<button type="submit" id="scrapeUrlBtn" class="w-full bg-indigo-600 text-white py-2 rounded-xl font-semibold hover:bg-indigo-700 transition hover:scale-105">🚀 Mulai Scraping URL</button>
+			</form>
+
+			<!-- Progress bar -->
+			<div id="progressContainer" class="mt-4 hidden">
+				<div class="w-full bg-gray-200 rounded-full overflow-hidden">
+					<div id="progressBar" class="progress-bar"></div>
+				</div>
+				<p class="text-sm text-indigo-600 mt-2 text-center animate-pulse">Sedang scraping data...</p>
+			</div>
+
+			<!-- Progress & download -->
+			<div id="resultSection" class="mt-6 hidden text-center">
+				<p class="text-green-700 font-semibold mb-3">✅ Scraping selesai!</p>
+				<a id="downloadBtn" href="#" download="hasil.csv" class="inline-block bg-green-500 text-white px-5 py-2 rounded-xl font-medium hover:bg-green-600 hover:scale-105 transition-all duration-200"> ⬇️ Download CSV </a>
+			</div>
+		</div>
+
+		<!-- Popup loading -->
+		<div id="loadingPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+			<div class="bg-white p-6 rounded-lg shadow-lg text-center">
+				<p class="text-lg font-semibold text-gray-800">⏳ Sedang memproses scraping...</p>
+				<div class="mt-4">
+					<div class="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			const form = document.getElementById("scraperForm");
+			const scrapeBtn = document.getElementById("scrapeBtn");
+			const resultSection = document.getElementById("resultSection");
+			const downloadBtn = document.getElementById("downloadBtn");
+			const progressContainer = document.getElementById("progressContainer");
+			const progressBar = document.getElementById("progressBar");
+
+			const keywordModeBtn = document.getElementById("keywordModeBtn");
+			const urlModeBtn = document.getElementById("urlModeBtn");
+			const keywordForm = document.getElementById("keywordForm");
+			const urlForm = document.getElementById("urlForm");
+			const loadingPopup = document.getElementById("loadingPopup");
+
+			// Fungsi untuk menampilkan popup loading
+			const showLoadingPopup = () => {
+				loadingPopup.classList.remove("hidden");
+			};
+
+			// Fungsi untuk menyembunyikan popup loading
+			const hideLoadingPopup = () => {
+				loadingPopup.classList.add("hidden");
+			};
+
+			// Event listener untuk tombol mode keyword
+			keywordModeBtn.addEventListener("click", (e) => {
+				e.preventDefault();
+				keywordForm.classList.remove("hidden");
+				urlForm.classList.add("hidden");
+			});
+
+			// Event listener untuk tombol mode URL
+			urlModeBtn.addEventListener("click", (e) => {
+				e.preventDefault();
+				urlForm.classList.remove("hidden");
+				keywordForm.classList.add("hidden");
+			});
+
+			// Event listener untuk form keyword
+			keywordForm.addEventListener("submit", async (e) => {
+				e.preventDefault();
+				const keyword = document.getElementById("keyword").value;
+				const pages = document.getElementById("pages").value;
+
+				// Tampilkan popup loading
+				showLoadingPopup();
+
+				try {
+					const response = await fetch("/start-scraping", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ keyword, pages }),
+					});
+
+					if (response.ok) {
+						const blob = await response.blob();
+						const csvUrl = URL.createObjectURL(blob);
+						alert("✅ Scraping selesai! Unduh file CSV.");
+						window.location.href = csvUrl;
+					} else {
+						alert("❌ Terjadi kesalahan saat scraping.");
+					}
+				} catch (err) {
+					alert("⚠️ Error koneksi atau server.");
+				} finally {
+					// Sembunyikan popup loading
+					hideLoadingPopup();
+				}
+			});
+
+			// Event listener untuk form URL
+			urlForm.addEventListener("submit", async (e) => {
+				e.preventDefault();
+				const url = document.getElementById("url").value;
+
+				// Tampilkan popup loading
+				showLoadingPopup();
+
+				try {
+					const response = await fetch("/start-scraping-url", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ url }),
+					});
+
+					if (response.ok) {
+						const blob = await response.blob();
+						const csvUrl = URL.createObjectURL(blob);
+						alert("✅ Scraping selesai! Unduh file CSV.");
+						window.location.href = csvUrl;
+					} else {
+						alert("❌ Terjadi kesalahan saat scraping.");
+					}
+				} catch (err) {
+					alert("⚠️ Error koneksi atau server.");
+				} finally {
+					// Sembunyikan popup loading
+					hideLoadingPopup();
+				}
+			});
+		</script>
+	</body>
+</html>
