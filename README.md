@@ -48,7 +48,7 @@ npm install
 ### 1. Jalankan Server
 
 ```bash
-npm start
+node server-dev2.js
 ```
 
 Server akan berjalan di: [http://localhost:3002](http://localhost:3002)
