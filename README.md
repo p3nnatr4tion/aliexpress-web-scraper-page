@@ -71,8 +71,10 @@ Buka browser dan kunjungi URL di atas.
 
 ### 📁 Hasil CSV untuk Keyword Mode
 File CSV akan disimpan di direktori proyek dengan nama:
+```bash
 aliexpress_<keyword>_page<jumlahHalaman>.csv
 Contoh: aliexpress_laptop_page2.csv
+```
 File ini berisi data produk seperti nama produk, harga, diskon, ulasan, dan lainnya.
 
 ### 🔗 URL Mode
@@ -85,8 +87,10 @@ File ini berisi data produk seperti nama produk, harga, diskon, ulasan, dan lain
 
 ### 📁 Hasil CSV untuk URL Mode
 File CSV akan disimpan di direktori proyek dengan nama:
+```bash
 aliexpress_<tanggal>.csv
 Contoh: aliexpress_2025-05-08.csv
+```
 File ini berisi data produk dari URL yang dimasukkan, termasuk nama produk, harga, ulasan, dan lainnya.
 
 ---
