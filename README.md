@@ -31,7 +31,7 @@ Web Scraper to CSV from AliExpress (Keyword-Page and Product URL) **without API 
 ### 2. Clone Repository
 
 ```bash
-git clone https://github.com/username/web-scraper-tool.git
+[git clone https://github.com/username/web-scraper-tool.git](https://github.com/p3nnatr4tion/aliexpress-web-scraper-page.git)
 cd web-scraper-tool
 ````
 
@@ -96,21 +96,18 @@ web-scraper-tool/
 
 ## 🖼️ Screenshot Tampilan
 
-### 1. Halaman Utama
+### 1. Keyword Mode
 
-![Halaman Utama](https://via.placeholder.com/800x400?text=Halaman+Utama)
+![image_2025-05-08_10-53-03](https://github.com/user-attachments/assets/0ce08a85-f22e-4de2-badd-fc916749fcbf)
 
-### 2. Keyword Mode
+### 2. URL Mode
 
-![Keyword Mode](https://via.placeholder.com/800x400?text=Keyword+Mode)
+![image_2025-05-08_10-53-15](https://github.com/user-attachments/assets/324b9c59-7b64-4351-8f7a-0d7e62991eeb)
 
-### 3. URL Mode
+### 3. Popup Loading dan Notif Hasil CSV
 
-![URL Mode](https://via.placeholder.com/800x400?text=URL+Mode)
+![image_2025-05-08_10-46-44](https://github.com/user-attachments/assets/b844734a-af43-41c6-91a8-162782e4a45a)
 
-### 4. Popup Loading
-
-![Popup Loading](https://via.placeholder.com/800x400?text=Popup+Loading)
 
 ---
 
