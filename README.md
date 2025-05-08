@@ -113,17 +113,17 @@ web-scraper-tool/
 ## 🖼️ Screenshot Tampilan
 
 ### 1. Keyword Mode
-
-![image_2025-05-08_10-53-03](https://github.com/user-attachments/assets/0ce08a85-f22e-4de2-badd-fc916749fcbf)
+![image](https://github.com/user-attachments/assets/28bd5e2d-dd82-45ce-98a1-f3398f0e69e1)
 
 ### 2. URL Mode
-
-![image_2025-05-08_10-53-15](https://github.com/user-attachments/assets/324b9c59-7b64-4351-8f7a-0d7e62991eeb)
+![image](https://github.com/user-attachments/assets/41d6cc05-404d-40be-b1c5-dcae40015586)
+Format URL (wajib) berupa:
+```bash
+https://www.aliexpress.com/item/1005002878829589.html
+```
 
 ### 3. Popup Loading dan Notif Hasil CSV
-
 ![image_2025-05-08_10-46-44](https://github.com/user-attachments/assets/b844734a-af43-41c6-91a8-162782e4a45a)
-
 
 ---
 
