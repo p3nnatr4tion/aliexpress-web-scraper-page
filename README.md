@@ -32,7 +32,7 @@ Web Scraper to CSV from AliExpress (Keyword-Page and Product URL) **without API 
 
 ```bash
 git clone https://github.com/p3nnatr4tion/aliexpress-web-scraper-page.git
-cd web-scraper-tool
+cd aliexpress-web-scraper-page
 ````
 
 ### 3. Instalasi Dependencies
